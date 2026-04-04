@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { env } from "../../config/env.js";
 import { prisma, Role } from "../../config/db.js";
 import { ApiError } from "../../utils/ApiError.js";
 
@@ -16,7 +17,7 @@ interface LoginInput {
 }
 
 function generateToken(userId: string, role: Role): string {
-  return jwt.sign({ userId, role }, process.env.JWT_SECRET as string, {
+  return jwt.sign({ userId, role }, env.JWT_SECRET, {
     expiresIn: "7d",
   });
 }

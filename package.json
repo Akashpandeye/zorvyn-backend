@@ -4,12 +4,16 @@
   "description": "Production-quality Finance Dashboard Backend API",
   "type": "module",
   "main": "dist/server.js",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "prisma generate && tsc",
     "start": "node dist/server.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
     "prisma:studio": "prisma studio"
   },
   "keywords": [],
@@ -25,6 +29,7 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.20.0",
+    "prisma": "^7.6.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
@@ -34,7 +39,6 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.5.0",
     "@types/pg": "^8.20.0",
-    "prisma": "^7.6.0",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2"
   }

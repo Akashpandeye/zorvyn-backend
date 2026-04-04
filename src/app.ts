@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 
+import { env } from "./config/env.js";
 import authRoutes from "./modules/auth/auth.routes.js";
 import userRoutes from "./modules/users/user.routes.js";
 import transactionRoutes from "./modules/transactions/transaction.routes.js";
@@ -13,8 +14,25 @@ import { errorHandler } from "./middlewares/error.middleware.js";
 
 const app = express();
 
+app.set("trust proxy", 1);
+
+const corsOrigins = env.CORS_ORIGIN
+  ? env.CORS_ORIGIN.split(",").map((o) => o.trim()).filter(Boolean)
+  : undefined;
+
+if (env.NODE_ENV === "production" && !corsOrigins?.length) {
+  console.warn(
+    "[config] CORS_ORIGIN is unset — browsers on other origins may be blocked. Set CORS_ORIGIN to your frontend URL(s), comma-separated."
+  );
+}
+
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: corsOrigins?.length ? corsOrigins : true,
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.get("/health", (_req, res) => {
