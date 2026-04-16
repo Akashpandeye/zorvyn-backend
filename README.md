@@ -1,6 +1,6 @@
 # Backend Link
 
-[zorvyn-backend](zorvyn-backend-production-52df.up.railway.app)
+[zorvyn-backend](https://zorvyn-backend-production-52df.up.railway.app/)
 
 # Finance Dashboard Backend Link
 
